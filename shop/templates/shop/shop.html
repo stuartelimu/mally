@@ -15,7 +15,7 @@
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Shop</strong></div>
+          <div class="col-md-12 mb-0"><a href="/">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Shop</strong></div>
         </div>
       </div>
     </div>
@@ -58,16 +58,20 @@
               <div class="products-wrap border-top-0">
   <div class="container-fluid">
     <div class="row no-gutters products">
+    {% for item in items %}
+    
       <div class="col-6 col-md-6 col-lg-6 border-top">
         <a href="shop-single.html" class="item">
           <img src="{% static 'images/product_1.jpg' %}" alt="Image" class="img-fluid">
           <div class="item-info">
-            <h3>The Shoe</h3>
+            <h3>{{ item.title }}</h3>
             <span class="collection d-block">Summer Collection</span>
-            <strong class="price">$9.50</strong>
+            <strong class="price">${{item.price}}</strong>
           </div>
         </a>
       </div>
+
+    {% endfor %}
       <div class="col-6 col-md-6 col-lg-6 border-top">
         <a href="shop-single.html" class="item">
           <span class="tag">Sale</span>
@@ -90,7 +94,7 @@
         </a>
       </div>
 
-      <div class="col-6 col-md-6 col-lg-6">
+      <!-- <div class="col-6 col-md-6 col-lg-6">
         <a href="shop-single.html" class="item">
           <img src="{% static 'images/product_1.jpg' %}" alt="Image" class="img-fluid">
           <div class="item-info">
@@ -120,7 +124,7 @@
             <strong class="price">$9.50</strong>
           </div>
         </a>
-      </div>
+      </div> -->
 
     </div>
   </div>
