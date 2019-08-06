@@ -31,6 +31,11 @@ class Item(models.Model):
             self.slug
         ])
 
+    def get_remove_from_cart_url(self):
+        return reverse('shop:remove_from_cart', args=[
+            self.slug
+        ])
+
 class OrderItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)

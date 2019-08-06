@@ -38,3 +38,16 @@ def add_to_cart(request, item):
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
     return redirect("shop:item_detail", item.slug)
+
+def remove_from_cart(request, item):
+    item = get_object_or_404(Item, slug=item)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    order_item = OrderItem.objects.filter(
+        item=item,
+        user=request.user, ordered=False
+    )[0]
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item.remove(order_item)
+    return redirect("shop:item_detail", item.slug)
