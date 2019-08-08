@@ -1,13 +1,34 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
 from django.utils import timezone
+from taggit.models import Tag
 
 from .models import Item, OrderItem, Order
 
 # Create your views here.
-def shop(request):
+def shop(request, tag_slug=None):
     items = Item.objects.order_by('-created')
+    cats = Tag.objects.all()
+    tag = None
+
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        items = items.filter(tags__in=[tag])
+
+    paginator = Paginator(items, 8)
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
     context = {
-        'items': items
+        'items': items,
+        'tag': tag,
+        'page': page,
+        'cats': cats
     }
     return render(request, "shop/shop.html", context)
 

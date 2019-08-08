@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load cart_template_tags %}
+
 <div class="search-wrap">
     <div class="container">
       <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
@@ -44,11 +46,20 @@
       </div>
       <div class="icons">
         <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+        {% if request.user.is_authenticated %}
+        
         <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
         <a href="cart.html" class="icons-btn d-inline-block bag">
           <span class="icon-shopping-bag"></span>
-          <span class="number">2</span>
+          <span class="number">{{ request.user|cart_item_count }}</span>
         </a>
+        <a href="{% url 'account_signup' %}" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+
+        {% else %}
+        <a href="{% url 'account_login' %}" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+        <a href="{% url 'account_signup' %}" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+
+        {% endif %}
         <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
       </div>
     </div>

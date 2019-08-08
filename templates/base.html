@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Mally &mdash; e-Commerce Website</title>
+  <title>Mally &mdash; {% block head_title %}e-Commerce Website{% endblock %}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -20,19 +20,35 @@
   <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  
 </head>
 <body>
 
 
   <div class="site-wrap">
+
+  {% if messages %}
+  <div>
+    <strong>Messages:</strong>
+    <ul>
+      {% for message in messages %}
+      <li>{{message}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+
   {% block content %}
 
-
   {% endblock content %}
+
+  {% block extra_body %}
+  {% endblock %}
   </div>
 
   {% include 'footer.html' %}
-
   {% include 'scripts.html' %}
 </body>
 </html>

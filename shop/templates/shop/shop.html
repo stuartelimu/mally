@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% load taggit_templatetags2_tags %}
+
+{% get_taglist as tags for 'shop.Item' %}
+
 {% block content %}
     
 
@@ -54,8 +58,8 @@
                 </div>
               </div>
             </div>
-            <div class="row mb-5">
-              <div class="products-wrap border-top-0">
+<div class="row mb-5">
+    <div class="products-wrap border-top-0">
   <div class="container-fluid">
     <div class="row no-gutters products">
     {% for item in items %}
@@ -158,9 +162,12 @@
             <div class="border p-4 mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
               <ul class="list-unstyled mb-0">
-                <li class="mb-1"><a href="#" class="d-flex"><span>Men</span> <span class="text-black ml-auto">(2,220)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Women</span> <span class="text-black ml-auto">(2,550)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Children</span> <span class="text-black ml-auto">(2,124)</span></a></li>
+                {% for category in cats %}
+                <li class="mb-1"><a href="#" class="d-flex"><span>{{category}}</span> <span class="text-black ml-auto"></span></a></li>
+                {% endfor %}
+
+                {% comment %} <li class="mb-1"><a href="#" class="d-flex"><span>Women</span> <span class="text-black ml-auto">(2,550)</span></a></li>
+                <li class="mb-1"><a href="#" class="d-flex"><span>Children</span> <span class="text-black ml-auto">(2,124)</span></a></li> {% endcomment %}
               </ul>
             </div>
 

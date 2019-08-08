@@ -27,7 +27,7 @@ urlpatterns = [
     path('', views.index),
     path('about/', views.about),
     path('contact/', views.contact),
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
 
 if settings.DEBUG:

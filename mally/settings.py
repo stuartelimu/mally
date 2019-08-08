@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'shop',
     'accounts',
     'taggit',
+    'taggit_templatetags2',
 ]
 
 SITE_ID = 1
