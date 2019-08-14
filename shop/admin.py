@@ -8,4 +8,6 @@ class ItemAdmin(admin.ModelAdmin):
 admin.site.register(Order)
 admin.site.register(OrderItem)
 admin.site.register(Address)
+admin.site.register(Coupon)
+
 

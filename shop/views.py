@@ -361,3 +361,53 @@ def payment_canceled(request):
     # return render(request, 'ecommerce_app/payment_cancelled.html')
     messages.error(request, "Your payment was not successful")
     return redirect("shop:cart")
+
+
+class AddCouponView(LoginRequiredMixin, View):
+    def post(self, *args, **kwargs):
+        if self.request.method == 'POST':
+            form = CouponForm(self.request.POST or None)
+            if form.is_valid():
+                code = form.cleaned_data.get('code')
+                order = Order.objects.get(user=self.request.user, ordered=False)
+                try:
+                    coupon = Coupon.objects.get(code=code)
+                    order.coupon = coupon
+                    order.save()
+                    messages.success(self.request, "Coupon added successfully")
+                    return redirect("shop:checkout")
+                except ObjectDoesNotExist:
+                    messages.warning(self.request, "Coupon does not exist")
+                    return redirect("shop:checkout")
+
+
+class RequestRefundView(LoginRequiredMixin, View):
+    def post(self, *args, **kwargs):
+        form = RefundForm(self.request.POST or None)
+        if form.is_valid():
+            ref_code = form.cleaned_data.get('ref_code')
+            message = form.cleaned_data.get('message')
+            email = form.cleaned_data.get('email')
+
+            # edit order
+            try:
+                order = Order.objects.get(ref_code=ref_code)
+                order.refund_requested= True
+                order.save()
+
+                # save refund model
+                refund = Refund()
+                refund.order = order
+                refund.reason = message
+                refund.email = email
+                messages.success(self.request, "Your request was received. We will get back to you shortly.")
+                return redirect("/")
+            except ObjectDoesNotExist:
+                    messages.error(self.request, "Order does not exist")
+                    return redirect("shop:request-refund")
+    def get(self, *args, **kwargs):
+        form = RefundForm()
+        context = {
+            'form': form
+        }
+        return render(self.request, "request-refund.html", context)
