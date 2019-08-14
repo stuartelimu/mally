@@ -8,30 +8,30 @@ PAYMENT_CHOICES = (
 )
 
 class CheckoutForm(forms.Form):
-    shipping_address = forms.CharField(required=False)
-    shipping_address2 = forms.CharField(required=False)
-    shipping_country = CountryField(blank_label='(select country)').formfield(
-        required=False,
-        widget=CountrySelectWidget(
-        attrs={
-        'class': 'custom-select d-block w-100'
-    }))
-    shipping_zip = forms.CharField(required=False)
-    same_shipping_address = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
-    set_default_shipping = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
-    use_default_shipping = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
-
     billing_address = forms.CharField(required=False)
     billing_address2 = forms.CharField(required=False)
     billing_country = CountryField(blank_label='(select country)').formfield(
         required=False,
         widget=CountrySelectWidget(
         attrs={
-        'class': 'custom-select d-block w-100'
+        'class': 'form-control'
     }))
     billing_zip = forms.CharField(required=False)
     set_default_billing = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
     use_default_billing = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
+    same_shipping_address = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
+
+    shipping_address = forms.CharField(required=False)
+    shipping_address2 = forms.CharField(required=False)
+    shipping_country = CountryField(blank_label='(select country)').formfield(
+        required=False,
+        widget=CountrySelectWidget(
+        attrs={
+        'class': 'form-control'
+    }))
+    shipping_zip = forms.CharField(required=False)
+    set_default_shipping = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
+    use_default_shipping = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
 
     payment_option = forms.ChoiceField(widget=forms.RadioSelect, choices=PAYMENT_CHOICES)
 

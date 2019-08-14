@@ -2,10 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.urls import reverse
+from django_countries.fields import CountryField
 
 LABEL_CHOICES = (
     ('S', 'Sale'),
     ('B', 'Back to School'),
+)
+
+
+ADDRESS_CHOICES = (
+    ('B', 'Billing'),
+    ('S', 'Shipping')
 )
 
 class Item(models.Model):
@@ -75,4 +82,28 @@ class Order(models.Model):
         for order_item in self.items.all():
             total += order_item.get_final_price()
         return total
+
+
+class Address(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    street_address = models.CharField(max_length=100)
+    apartment_address = models.CharField(max_length=100)
+    country = CountryField(multiple=False)
+    zip = models.CharField(max_length=100)
+    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
+    default = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name_plural = 'Addresses'
+
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=15)
+    amount = models.FloatField()
+
+    def __str__(self):
+        return self.code
 
