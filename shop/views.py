@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
@@ -9,6 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count
 from django.utils import timezone
 from taggit.models import Tag
+from paypal.standard.forms import PayPalPaymentsForm
 
 from .models import Item, OrderItem, Order, Address, Coupon
 from .forms import CheckoutForm, CouponForm
@@ -306,7 +308,7 @@ class CheckoutView(View):
                 self.request.session['ref_code'] = order.ref_code
                 # return redirect('process_payment')
                 if payment_option == 'P':
-                    return redirect("shop:payment")
+                    return redirect("shop:paypal_payment", payment_option='paypal')
                 elif payment_option == 'M':
                     # return redirect("shop:payment", payment_option='momopay')
                     pass
@@ -318,5 +320,44 @@ class CheckoutView(View):
             return redirect("shop:order_summary")
 
 
-def payment(request):
-    return render(request, "shop/thankyou.html")
+def process_paypal_payment(request, payment_option):
+    # order_id = request.session.get('order_id')
+    # order = get_object_or_404(Order, id=order_id)
+    order = Order.objects.get(user=request.user, ordered=False)
+    host = request.get_host()
+    if order.billing_address:
+        paypal_dict = {
+            'business': settings.PAYPAL_RECEIVER_EMAIL,
+            'amount': order.get_total(),
+            'item_name': 'Order {}'.format(order.id),
+            'invoice': order.ref_code,
+            'currency_code': 'USD',
+            'notify_url': 'http://{}{}'.format(host,
+                                            reverse('paypal-ipn')),
+            'return_url': 'http://{}{}'.format(host,
+                                            reverse('shop:payment_done')),
+            'cancel_return': 'http://{}{}'.format(host,
+                                                reverse('shop:payment_cancelled')),
+        }
+
+        form = PayPalPaymentsForm(initial=paypal_dict)
+        context = {
+            'form': form,
+            'order': order
+        }
+        return render(request, "shop/paypal-payment.html", context)
+    else:
+        messages.error(request, "Please complete the checkout form")
+        return redirect("shop:checkout")
+
+@csrf_exempt
+def payment_done(request):
+    # messages.info(request, "Your payment was successful")
+    return render(request, 'shop/thankyou.html')
+
+
+@csrf_exempt
+def payment_canceled(request):
+    # return render(request, 'ecommerce_app/payment_cancelled.html')
+    messages.error(request, "Your payment was not successful")
+    return redirect("shop:cart")

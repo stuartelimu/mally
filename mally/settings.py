@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'taggit',
     'taggit_templatetags2',
     'django_countries',
+    'paypal.standard.ipn',  
 ]
 
 SITE_ID = 1
@@ -146,3 +147,7 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
+ 
+PAYPAL_TEST = config('PAYPAL_TEST', cast=bool)

@@ -13,7 +13,9 @@ urlpatterns = [
     path('cart/<slug:slug>/remove_single_item_from_cart/', views.remove_single_item_from_cart, name="remove_single_item_from_cart"),
     path('cart/<slug:slug>/add_single_item_to_cart/', views.add_single_item_to_cart, name="add_single_item_to_cart"),
     path('checkout/', views.CheckoutView.as_view(), name="checkout"),
-    path('payment/', views.payment, name="payment"),
+    path('payment/<payment_option>/', views.process_paypal_payment, name="paypal_payment"),
+    path('payment_done/', views.payment_done, name="payment_done"),
+    path('payment_cancelled/', views.payment_canceled, name="payment_cancelled"),
 
 ]
 

@@ -28,6 +28,7 @@ urlpatterns = [
     path('about/', views.about),
     path('contact/', views.contact),
     path('accounts/', include('accounts.urls')),
+    path('paypal/', include('paypal.standard.ipn.urls')),
 ]
 
 if settings.DEBUG:
