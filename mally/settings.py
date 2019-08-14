@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'accounts',
     'taggit',
     'taggit_templatetags2',
+    'django_countries',
 ]
 
 SITE_ID = 1
