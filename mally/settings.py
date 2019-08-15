@@ -46,11 +46,13 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'shop',
+    'store',
     'accounts',
     'taggit',
     'taggit_templatetags2',
     'django_countries',
     'paypal.standard.ipn',  
+    'django.contrib.gis',
 ]
 
 SITE_ID = 1
@@ -93,8 +95,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),,
+        'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
