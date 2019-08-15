@@ -20,7 +20,7 @@
               <h1 class="mb-2">Madewell</h1>
               <h4>Summer Collection</h4>
               <div class="price mt-3 mb-5"><strong>1,499</strong> <del>$1,999</del></div>
-              <p><a href="#" class="btn btn-outline-primary rounded-0">Shop Now</a> <a href="{% url 'store:store-list' %}" class="btn btn-primary rounded-0">Shop Now</a></p>
+              <p><form method="POST">{% csrf_token %}<button id="btnLocate" type="submit" class="btn btn-outline-primary rounded-0">Shop Now</button></form> <a href="{% url 'store:store-list' %}" class="btn btn-primary rounded-0">Shop Now</a></p>
             </div>  
           </div>
           <div class="col-lg-7 align-self-end text-center text-lg-right">
@@ -224,6 +224,61 @@
       </div>
     </div>
 
+  <script>
+
+    const getLocationBtn = document.querySelector('#btnLocate');
+
+    function loadDoc(e) {
+      e.preventDefault();
+      var xhttp = new XMLHttpRequest();
+      var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          // document.getElementById("demo").innerHTML =
+          // this.responseText;
+        }
+      };
+      xhttp.open("POST", "stores/name/", true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send("name=1&csrfmiddlewaretoken="+csrftoken);
+    }
+
+    getLocationBtn.addEventListener('click', loadDoc);
+    
+    /*
+    function geoFindMe() {
+
+      const status = document.querySelector('#status');
+      const mapLink = document.querySelector('#map-link');
+
+      mapLink.href = '';
+      mapLink.textContent = '';
+
+      function success(position) {
+        const latitude  = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        status.textContent = '';
+        mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+        mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+      }
+
+      function error() {
+        status.textContent = 'Unable to retrieve your location';
+      }
+
+      if (!navigator.geolocation) {
+        status.textContent = 'Geolocation is not supported by your browser';
+      } else {
+        status.textContent = 'Locating…';
+        navigator.geolocation.getCurrentPosition(success, error);
+      }
+
+      }
+
+      document.querySelector('#find-me').addEventListener('click', geoFindMe); */
+
+  </script>
     
  
 {% endblock content %}
