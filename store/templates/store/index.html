@@ -24,6 +24,7 @@
               <p id = "status"></p>
               <a id = "map-link" target="_blank"></a>
               <p id = "demo"></p>
+              {% if stores %}
               {% for store in stores %}
               <div class="border p-3 mb-3">
                 <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapstore{{forloop.counter0}}" role="button" aria-expanded="false" aria-controls="collapstore{{forloop.counter0}}">{{ store.name }}</a></h3>
@@ -33,7 +34,8 @@
                   </div>
                 </div>
               </div>
-              {% empty %}
+              {% endfor %}
+              {% else %}
               <div class="border p-3 mb-3">
                 <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">No stores near you</a></h3>
                 <div class="collapse" id="collapsebank">
@@ -42,7 +44,7 @@
                   </div>
                 </div>
               </div>
-              {% endfor %}
+              {% endif %}
             </div>  
           </div>
           <div class="col-lg-7 align-self-end text-center text-lg-right">
