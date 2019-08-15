@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Near By Shops</title>
+</head>
+<body>
+  <h2>Near by shops</h2>
+  {% if stores %}
+  <ul>
+  {% for store in stores %}
+  <li>{{ store.name }}: {{ store.distance }}</li>
+  {% endfor %}
+  </ul>
+  {% else %}
+  <p>Sorry no shops near you</p>
+  {% endif %}
+</body>
+</html>
