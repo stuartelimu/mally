@@ -24,6 +24,7 @@ class Item(models.Model):
     tags = TaggableManager(verbose_name="Categories")
     label = models.CharField(choices=LABEL_CHOICES, blank=True, null=True, max_length=2)
     description = models.TextField()
+    image = models.ImageField()
 
     def __str__(self):
         return self.title

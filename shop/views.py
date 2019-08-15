@@ -13,7 +13,7 @@ from taggit.models import Tag
 from paypal.standard.forms import PayPalPaymentsForm
 
 from .models import Item, OrderItem, Order, Address, Coupon
-from .forms import CheckoutForm, CouponForm
+from .forms import CheckoutForm, CouponForm, RefundForm
 
 import random
 import string
@@ -73,7 +73,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return redirect("/")
 
 
-
+@login_required
 def add_to_cart(request, item):
     item = get_object_or_404(Item, slug=item)
     order_item, created = OrderItem.objects.get_or_create(
@@ -95,6 +95,7 @@ def add_to_cart(request, item):
         order.items.add(order_item)
     return redirect("shop:item_detail", item.slug)
 
+@login_required
 def remove_from_cart(request, item):
     item = get_object_or_404(Item, slug=item)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
@@ -410,4 +411,4 @@ class RequestRefundView(LoginRequiredMixin, View):
         context = {
             'form': form
         }
-        return render(self.request, "request-refund.html", context)
+        return render(self.request, "shop/request-refund.html", context)
