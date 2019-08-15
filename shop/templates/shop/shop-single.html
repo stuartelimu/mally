@@ -25,7 +25,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="border">
-              <img src="{% static 'images/product_1.jpg' %}" alt="Image" class="img-fluid">
+              <img src="{{item.image.url}}" alt="Image" class="img-fluid">
             </div>
           </div>
           <div class="col-md-6">
@@ -82,7 +82,7 @@
               <div class="product">
                 <a href="{{similar_item.get_absolute_url}}" class="item">
                   
-                  <img src="{% static 'images/product_1.jpg' %}" alt="Image" class="img-fluid">
+                  <img src="{{item.image.url}}" alt="Image" class="img-fluid">
                   <div class="item-info">
                     <h3>{{ similar_item.title }}</h3>
                     <span class="collection d-block">Summer Collection</span>

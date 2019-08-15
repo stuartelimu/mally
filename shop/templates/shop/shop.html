@@ -69,7 +69,7 @@
           {% if item.label %}
           <span class="tag">{{item.get_label_display}}</span>
           {% endif %}
-          <img src="{% static 'images/product_1.jpg' %}" alt="Image" class="img-fluid">
+          <img src="{{item.image.url}}" alt="Image" class="img-fluid">
           <div class="item-info">
             <h3>{{ item.title }}</h3>
             <span class="collection d-block">Summer Collection</span>
