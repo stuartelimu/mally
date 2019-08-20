@@ -42,16 +42,27 @@ def store_list(request):
         except KeyError:
             return render(request, 'store/index.html')
 
+def index(request):
+    return render(request, 'store/index.html')
+
 
 def get_store_list(request):
-    latitude = request.session['latitude']
-    longitude = request.session['longitude']
+    latitude = request.POST.get('lat', None)
+    longitude = request.POST.get('long', None)
     user_location = fromstr("POINT" + "("+str(longitude)+" "+str(latitude)+")", srid=4326)
     queryset = Store.objects.annotate(distance=Distance('location', user_location)).order_by('distance')[:3]
-    context = {
-        'stores': queryset
-    }
-    return render(request, 'store/store-list.html', context)
+    data = []
 
+    store_name = ""
+    store_distance = ""
+
+    for store in queryset:
+        store_distance = store.distance.m
+        store_name = store.name
+        store_dict = {"name": store_name, "distance": store_distance}
+        data.append(store_dict)
+    
+    print(data)
+    return JsonResponse(data, safe=False)
 
     

@@ -291,11 +291,23 @@
         var csrftoken = $("[name=csrfmiddlewaretoken]").val();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("demo").innerHTML = this.responseText;
+            const myArr = JSON.parse(this.responseText);
+            //document.getElementById("demo").innerHTML = myArr[0].name;
+            console.log(typeof(myArr));
+            //let store_locations = this.responseText.split();
+            //store_locations = store_locations[0];
+            //console.log(typeof(store_locations));
+            //store_locations.forEach(item => console.log(item.name))
+            //const stores = document.getElementById("demo").innerHTML;
+            //stores.forEach(store => console.log(store.name))
+            myArr.forEach((item, index) => {
+              document.getElementById("demo").innerHTML += item.name;
+            });
+            
           }
         };
 
-        xhttp.open("POST", "/", true);
+        xhttp.open("POST", "stores/", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(`lat=${latitude}&long=${longitude}&csrfmiddlewaretoken=${csrftoken}`);
 
