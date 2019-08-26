@@ -47,19 +47,29 @@ def index(request):
 
 
 def get_store_list(request):
-    latitude = request.POST.get('lat', None)
-    longitude = request.POST.get('long', None)
+    # latitude = request.POST.get('lat', None)
+    # longitude = request.POST.get('long', None)
+    latitude = 0.3614958
+    longitude = 32.6463089
     user_location = fromstr("POINT" + "("+str(longitude)+" "+str(latitude)+")", srid=4326)
-    queryset = Store.objects.annotate(distance=Distance('location', user_location)).order_by('distance')[:3]
+    queryset = Store.objects.annotate(distance=Distance('location', user_location)).order_by('distance')[:6]
     data = []
 
     store_name = ""
     store_distance = ""
 
     for store in queryset:
-        store_distance = store.distance.m
+        store_latitude = store.location.y
+        store_longitude = store.location.x
+        print(store.location.x, store.location.y)
+        store_distance = round(store.distance.km, 2)
         store_name = store.name
-        store_dict = {"name": store_name, "distance": store_distance}
+        store_dict = {
+            "name": store_name, 
+            "distance": store_distance, 
+            "latitude": store_latitude, 
+            "longitude": store_longitude
+        }
         data.append(store_dict)
     
     print(data)
