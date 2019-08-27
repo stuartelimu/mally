@@ -22,28 +22,49 @@
 
 <h1>{% trans "Sign Up" %}</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+{% comment %} <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p> {% endcomment %}
+{% blocktrans %}
+<div class="form-group border p-2">
+  <label for="id_id_payment_option_0_1" class="text-black" data-toggle="collapse" href="#collapsemomopay" role="button" aria-expanded="false" aria-controls="col#collapsemomopay"> Already have an account?</label>
+  <div class="collapse" id="collapsemomopay">
+    <div class="py-2">
+      <p class="mb-0">Already have an account? Then please <a href="{{ login_url }}">sign in</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblocktrans %}
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+{% comment %} <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   {{ form.as_p }}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
   <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
-
-{% comment %} <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-
-  <p><label for="id_email">E-mail:</label> <input type="email" name="email" placeholder="E-mail address" required="" id="id_email"></p>
-<p><label for="id_username">Username:</label> <input type="text" name="username" placeholder="Username" autofocus="autofocus" minlength="1" maxlength="150" required="" id="id_username"></p>
-<p><label for="id_phone_number">Phone number:</label> <input type="text" name="phone_number" maxlength="10" required="" id="id_phone_number"></p>
-<p><label for="id_password1">Password:</label> <input type="password" name="password1" placeholder="Password" required="" id="id_password1"></p>
-<p><label for="id_password2">Password (again):</label> <input type="password" name="password2" placeholder="Password (again)" required="" id="id_password2"></p>
-  
-  <button type="submit">Sign Up »</button>
 </form> {% endcomment %}
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+<div class="form-group">
+    <input type="email" name="email" placeholder="E-mail address" autofocus="autofocus" class="form-control" required="" id="id_email"> 
+</div> 
+<div class="form-group">
+    <input type="text" name="username" placeholder="Username" autofocus="autofocus" class="form-control" minlength="1" maxlength="150" required="" id="id_username"> 
+</div> 
+<div class="form-group">
+    <input type="text" name="phone_number" placeholder="0700-000-000" autofocus="autofocus" class="form-control" maxlength="10" required="" id="id_phone_number"> 
+</div> 
+<div class="form-group"> 
+  <input type="password" name="password1" placeholder="Password" class="form-control" required="" id="id_password1"> 
+</div> 
+<div class="form-group"> 
+  <input type="password" name="password2" placeholder="Password (again)" class="form-control" required="" id="id_password2"> 
+</div> 
+<div class="form-group">
+  <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+</div>  
+</form>
 
 </div>
 </div>
