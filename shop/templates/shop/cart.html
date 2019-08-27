@@ -41,7 +41,7 @@
                   {% for order_item in object.items.all %}
                   <tr>
                     <td class="product-thumbnail">
-                      <img src="{% static 'images/product_1.jpg' %}" alt="Image" class="img-fluid">
+                      <img src="{{order_item.item.image.url}}" alt="Image" class="img-fluid">
                     </td>
                     <td class="product-name">
                       <h2 class="h5 text-black">{{order_item.item.title}}</h2>
@@ -102,9 +102,9 @@
         <div class="row">
           <div class="col-md-6">
             <div class="row mb-5">
-              <div class="col-md-6 mb-3 mb-md-0">
+              {% comment %} <div class="col-md-6 mb-3 mb-md-0">
                 <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
-              </div>
+              </div> {% endcomment %}
               <div class="col-md-6">
                 <a href="{% url 'shop:item_list' %}" class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</a>
               </div>
