@@ -162,6 +162,10 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 ACCOUNT_EMAIL_REQUIRED=True
 
+ACCOUNT_FORMS = {
+    'signup': 'accounts.forms.MyCustomSignupForm',
+}
+
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
  
 PAYPAL_TEST = config('PAYPAL_TEST', cast=bool)
