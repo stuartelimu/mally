@@ -158,6 +158,8 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
+LOGIN_REDIRECT_URL = '/shop'
+
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 ACCOUNT_EMAIL_REQUIRED=True
@@ -171,3 +173,5 @@ ACCOUNT_FORMS = {
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
  
 PAYPAL_TEST = config('PAYPAL_TEST', cast=bool)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'   # During development only
