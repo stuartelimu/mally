@@ -1,10 +1,25 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
+
+{% load static %}
 
 {% load i18n %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
+
+<div class="site-navbar bg-white py-2">
+
+  {% include 'nav.html' %}
+  
+</div>
+
+<div class="site-blocks-cover" data-aos="fade">
+    <div class="container">
+<div class="row align-items-center">
+<div class="col-lg-5 text-center">
+  <div class="featured-hero-product w-100">
+
 <h1>{% trans "Sign Up" %}</h1>
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
@@ -17,5 +32,25 @@
   {% endif %}
   <button type="submit">{% trans "Sign Up" %} &raquo;</button>
 </form>
+
+{% comment %} <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  <p><label for="id_email">E-mail:</label> <input type="email" name="email" placeholder="E-mail address" required="" id="id_email"></p>
+<p><label for="id_username">Username:</label> <input type="text" name="username" placeholder="Username" autofocus="autofocus" minlength="1" maxlength="150" required="" id="id_username"></p>
+<p><label for="id_password1">Password:</label> <input type="password" name="password1" placeholder="Password" required="" id="id_password1"></p>
+<p><label for="id_password2">Password (again):</label> <input type="password" name="password2" placeholder="Password (again)" required="" id="id_password2"></p>
+  
+  <button type="submit">Sign Up »</button>
+</form> {% endcomment %}
+
+</div>
+</div>
+
+  <div class="col-lg-7 align-self-end text-center text-lg-right">
+    <img src="{% static 'images/new/person_transparent.png' %}" alt="Image" class="img-fluid img-1">
+  </div>
+</div>
+</div>
+</div>
 
 {% endblock %}
