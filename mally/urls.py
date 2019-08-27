@@ -27,7 +27,8 @@ urlpatterns = [
     path('', include('store.urls', namespace='store')),
     path('about/', views.about),
     path('contact/', views.contact),
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('profile/', include('accounts.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
 ]
 
