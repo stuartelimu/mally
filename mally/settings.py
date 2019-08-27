@@ -184,3 +184,7 @@ PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = config('PAYPAL_TEST', cast=bool)
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'   # During development only
+
+DEFAULT_FROM_EMAIL = 'mally@localhost'
+
+SERVER_EMAIL = 'mally@localhost'
