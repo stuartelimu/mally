@@ -45,19 +45,30 @@
         </nav>
       </div>
       <div class="icons">
-        <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+        
         {% if request.user.is_authenticated %}
         
-        <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+        <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+
+        <li class="d-inline-block dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hi, {{ request.user.username }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Profile</a>
+            <a class="dropdown-item" href="#">Orders</a>
+            <a class="dropdown-item" href="{% url 'account_logout' %}">logout</a>
+          </div>
+        </li>
+
         <a href="{% url 'shop:cart' %}" class="icons-btn d-inline-block bag">
           <span class="icon-shopping-bag"></span>
           <span class="number">{{ request.user|cart_item_count }}</span>
         </a>
-        <a href="{% url 'account_logout' %}" class="icons-btn d-inline-block"><span class="icon-user"></span></a>
 
         {% else %}
-        <a href="{% url 'account_login' %}" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
-        <a href="{% url 'account_signup' %}" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+        <a href="{% url 'account_login' %}" class="icons-btn d-inline-block"><span class="icon-user"></span></a>
+        {% comment %} <a href="{% url 'account_signup' %}" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a> {% endcomment %}
 
         {% endif %}
         <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
