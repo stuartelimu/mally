@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    
+
+    <div class="site-navbar bg-white py-2 position-relative">
+
+        {% include 'nav.html' %}
+
+
+    </div>
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <a href="cart.html">Cart</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Checkout</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-12">
+            <div class="border p-4 rounded" role="alert">
+              Returning customer? <a href="#">Click here</a> to login
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-5 mb-md-0">
+            <h2 class="h3 mb-3 text-black">Account Details</h2>
+
+            <div class="p-3 p-lg-5 border" >
+                {{ request.user.username }}
+                {{ request.user.email }}
+
+                <div class="border pt-3 mt-3">
+                    <label for="id_set_default_shipping" class="text-black" data-toggle="collapse" href="#collapse_set_default_shipping" role="button" aria-expanded="false" aria-controls="collapse_set_default_shipping"><input type="checkbox" name="set_default_shipping" id="id_set_default_shipping"> Save as default shipping address?</label>
+                    <div class="collapse" id="collapse_set_default_shipping">
+                    <div class="py-2">
+                        <p class="mb-3">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+            
+
+            {% comment %} 
+            <form class="p-3 p-lg-5 border" method="POST">
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="id_billing_address" class="text-black">Address <span class="text-danger">*</span></label>
+                  <input type="text" id="id_billing_address" class="form-control" name="billing_address" placeholder="Street address">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="text" id="id_billing_address2" name="billing_address2" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="id_billing_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="id_billing_zip" name="billing_zip">
+                </div>
+              </div>
+
+              
+
+              <div class="form-group">
+                <label for="id_set_default_billing" class="text-black" data-toggle="collapse" href="#collapse_set_default_billing" role="button" aria-expanded="false" aria-controls="collapse_set_default_billing"><input type="checkbox" value="2" name="set_default_billing" id="id_set_default_billing"> Save as default billing address?</label>
+                <div class="collapse" id="collapse_set_default_billing">
+                  <div class="py-2">
+                    <p class="mb-3">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
+                  </div>
+                </div>
+              </div>
+              {% if default_billing_address %}
+              <div class="form-group">
+                <label for="id_use_default_billing" class="text-black" data-toggle="collapse" href="#collapse_use_default_billing" role="button" aria-expanded="false" aria-controls="collapse_use_default_billing"><input type="checkbox" name="use_default_billing" id="id_use_default_billing"> Use default billing address?</label>
+                <div class="collapse" id="collapse_use_default_billing">
+                  <div class="py-2">
+                    <p class="mb-3">{{ default_billing_address.street_address }}</p>
+                    
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+
+
+              <div class="form-group">
+                <label for="id_same_shipping_address" class="text-black" data-toggle="collapse" href="#collapse_same_shipping_address" role="button" aria-expanded="false" aria-controls="collapse_same_shipping_address"><input type="checkbox" name="same_shipping_address" id="id_same_shipping_address"> Ship To A Different Address?</label>
+                <div class="collapse" id="collapse_same_shipping_address">
+                  <div class="py-2">
+
+                    <div class="form-group">
+                      <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+                      {{ form.shipping_country }}
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <label for="id_shipping_address" class="text-black">Address <span class="text-danger">*</span></label>
+                        <input type="text" id="id_shipping_address" class="form-control" name="shipping_address" placeholder="Street address">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <input type="text" id="id_shipping_address2" name="shipping_address2" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <label for="id_shipping_zip" class="text-black">Posta / Zip <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="id_shipping_zip" name="shipping_zip">
+                      </div>
+                    </div>
+
+
+                    <div class="form-group">
+                      <label for="id_set_default_shipping" class="text-black" data-toggle="collapse" href="#collapse_set_default_shipping" role="button" aria-expanded="false" aria-controls="collapse_set_default_shipping"><input type="checkbox" name="set_default_shipping" id="id_set_default_shipping"> Save as default shipping address?</label>
+                      <div class="collapse" id="collapse_set_default_shipping">
+                        <div class="py-2">
+                          <p class="mb-3">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {% if default_shipping_address %}
+                    <div class="form-group">
+                      <label for="id_use_default_shipping" class="text-black" data-toggle="collapse" href="#collapse_use_default_shipping" role="button" aria-expanded="false" aria-controls="collapse_use_default_shipping"><input type="checkbox" name="use_default_shipping" id="id_use_default_shipping"> Use default shipping address?</label>
+                      <div class="collapse" id="collapse_use_default_shipping">
+                        <div class="py-2">
+                          <p class="mb-3">{{ default_shipping_address.street_address }}</p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+
+                    </div>
+
+                  </div>
+
+                </div>
+              
+
+              <div class="form-group">
+                <label for="c_order_notes" class="text-black">Order Notes</label>
+                <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="Write your notes here..."></textarea>
+              </div>
+
+              <div class="border p-3 mb-3">
+                <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
+
+                <div class="collapse" id="collapsebank">
+                  <div class="py-2">
+                    <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border p-3 mb-3">
+                <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
+
+                <div class="collapse" id="collapsecheque">
+                  <div class="py-2">
+                    <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="border p-3 mb-5">
+                <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
+
+                <div class="collapse" id="collapsepaypal">
+                  <div class="py-2">
+                    <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                  </div>
+                </div>
+              </div> -->
+
+              <div class="form-group border p-3">
+                <label for="id_id_payment_option_0_1" class="text-black" data-toggle="collapse" href="#collapsemomopay" role="button" aria-expanded="false" aria-controls="col#collapsemomopay"><input type="radio" value="M" name="payment_option" id="id_id_payment_option_0_1"> MOMO Pay</label>
+                <div class="collapse" id="collapsemomopay">
+                  <div class="py-2">
+                    <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group border p-3 mb-5">
+                <label for="id_id_payment_option_0_2" class="text-black" data-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="col#collapsepaypal"><input type="radio" value="P" name="payment_option" id="id_id_payment_option_0_2"> Paypal</label>
+                <div class="collapse" id="collapsepaypal">
+                  <div class="py-2">
+                    <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Place Order</button>
+              </div>
+
+            </form>
+            {% endcomment %}
+            </div>
+          
+          <div class="col-md-6">
+
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+                <div class="p-3 p-lg-5 border">
+                  
+                  <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
+                  <form class="input-group w-75" method="POST" action="{% url 'shop:add_coupon' %}">
+                    {% csrf_token %}
+                    {% comment %} <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2"> {% endcomment %}
+                    {{ couponform.code }}
+                    <div class="input-group-append">
+                      <button class="btn btn-primary btn-sm px-4" type="submit" id="button-addon2">Apply</button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+            
+            {% include "shop/order-summary-snippet.html" %}
+
+          </div>
+
+        </div>
+        </div>
+      </div>
+
+
+{% endblock content %}
