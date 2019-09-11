@@ -35,7 +35,7 @@
             
             <p><strong class="text-primary h4">${% if item.discount_price %}{{item.discount_price}}{% else %}{{item.price}}{% endif %}</strong></p>
             
-            <div class="mb-1 d-flex">
+            {% comment %} <div class="mb-1 d-flex">
               <label for="option-sm" class="d-flex mr-3 mb-3">
                 <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>
               </label>
@@ -58,10 +58,10 @@
               <div class="input-group-append">
                 <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
               </div>
-            </div>
-
-            </div>
+            </div> {% endcomment %}
             <p><a href="{{item.get_add_to_cart_url}}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+            </div>
+            
 
           </div>
         </div>
