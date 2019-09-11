@@ -25,7 +25,8 @@ def generateRef(stringLength=6):
 
 def shop(request, tag_slug=None):
     items = Item.objects.order_by('-created')
-    cats = Tag.objects.all()
+    tags = Tag.objects.all()
+
     tag = None
 
     if tag_slug:
@@ -44,7 +45,7 @@ def shop(request, tag_slug=None):
         'items': items,
         'tag': tag,
         'page': page,
-        'cats': cats
+        'tags': tags
     }
     return render(request, "shop/shop.html", context)
 

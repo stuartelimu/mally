@@ -32,7 +32,13 @@
 
             <div class="row align">
               <div class="col-md-12 mb-5">
-                <div class="float-md-left"><h2 class="text-black h5">Shop All</h2></div>
+                <div class="float-md-left"><h2 class="text-black h5">
+                {% if tag %}
+                Shop from Category "{{ tag.name }}"
+                {% else %}
+                Shop All
+                {% endif %}
+                </h2></div>
                 <div class="d-flex">
                   <div class="dropdown mr-1 ml-md-auto">
                     <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -162,8 +168,8 @@
             <div class="border p-4 mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
               <ul class="list-unstyled mb-0">
-                {% for category in cats %}
-                <li class="mb-1"><a href="#" class="d-flex"><span>{{category}}</span> <span class="text-black ml-auto"></span></a></li>
+                {% for tag in tags %}
+                <li class="mb-1"><a href="{% url 'shop:item_list_by_category' tag.slug %}" class="d-flex"><span>{{tag}}</span> <span class="text-black ml-auto"></span></a></li>
                 {% endfor %}
 
                 {% comment %} <li class="mb-1"><a href="#" class="d-flex"><span>Women</span> <span class="text-black ml-auto">(2,550)</span></a></li>

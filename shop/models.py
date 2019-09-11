@@ -21,7 +21,7 @@ class Item(models.Model):
     discount_price = models.FloatField(blank=True, null=True)
     slug = models.SlugField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
-    tags = TaggableManager(verbose_name="Categories")
+    tags = TaggableManager()
     label = models.CharField(choices=LABEL_CHOICES, blank=True, null=True, max_length=2)
     description = models.TextField()
     image = models.ImageField()
