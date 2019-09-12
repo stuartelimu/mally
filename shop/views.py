@@ -75,8 +75,8 @@ class OrderSummaryView(LoginRequiredMixin, View):
 
 
 @login_required
-def add_to_cart(request, item):
-    item = get_object_or_404(Item, slug=item)
+def add_to_cart(request, slug):
+    item = get_object_or_404(Item, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(
         item=item,
         user=request.user, ordered=False
@@ -97,8 +97,8 @@ def add_to_cart(request, item):
     return redirect("shop:item_detail", item.slug)
 
 @login_required
-def remove_from_cart(request, item):
-    item = get_object_or_404(Item, slug=item)
+def remove_from_cart(request, slug):
+    item = get_object_or_404(Item, slug=slug)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
@@ -111,8 +111,10 @@ def remove_from_cart(request, item):
             )
             order.items.remove(order_item)
             messages.info(request, "Item was removed from your cart")
-            # return redirect("shop:order_summary")
-    return redirect("shop:cart")
+            return redirect("shop:cart")
+            
+    else:
+        return redirect("shop:cart")
 
 @login_required
 def remove_single_item_from_cart(request, slug):
