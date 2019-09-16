@@ -49,8 +49,8 @@ def shop(request, tag_slug=None):
     }
     return render(request, "shop/shop.html", context)
 
-def itemdetail(request, item):
-    item = get_object_or_404(Item, slug=item)
+def itemdetail(request, slug):
+    item = get_object_or_404(Item, slug=slug)
     item_tags_ids = item.tags.values_list('id', flat=True)
     similar_items = Item.objects.filter(tags__in=item_tags_ids).exclude(id=item.id)
     similar_items = similar_items.annotate(same_tags=Count('tags')).order_by('-same_tags')[:6]
@@ -79,7 +79,8 @@ def add_to_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(
         item=item,
-        user=request.user, ordered=False
+        user=request.user, 
+        ordered=False,
     )
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
@@ -87,14 +88,16 @@ def add_to_cart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
+            return redirect("shop:item_detail", item.slug) 
         else:
             order.items.add(order_item)
+            return redirect("shop:item_detail", item.slug)  
     else:
         # size = request.get('shop-sizes')
         ordered_date = timezone.now()
         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
-    return redirect("shop:item_detail", item.slug)
+        return redirect("shop:item_detail", item.slug)
 
 @login_required
 def remove_from_cart(request, slug):
