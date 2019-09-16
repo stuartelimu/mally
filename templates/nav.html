@@ -56,7 +56,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="/accounts/profile/">Profile</a>
-            <a class="dropdown-item" href="#">Orders</a>
+            <a class="dropdown-item" href="{% url 'shop:order_summary' %}">Orders</a>
             <a class="dropdown-item" href="{% url 'account_logout' %}">logout</a>
           </div>
         </li>

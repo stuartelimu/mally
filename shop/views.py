@@ -418,3 +418,21 @@ class RequestRefundView(LoginRequiredMixin, View):
             'form': form
         }
         return render(self.request, "shop/request-refund.html", context)
+
+@csrf_exempt
+def order_summary(request):
+    my_orders = Order.objects.all().filter(user=request.user, ordered=True)
+    
+    paginator = Paginator(my_orders, 8)
+    page = request.GET.get('page')
+    try:
+        orders = paginator.page(page)
+    except PageNotAnInteger:
+        orders = paginator.page(1)
+    except EmptyPage:
+        orders = paginator.page(paginator.num_pages)
+
+    context = {
+        'my_orders': orders
+    }
+    return render(request, 'shop/order.html', context)

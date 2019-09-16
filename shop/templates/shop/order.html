@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    
+
+    <div class="site-navbar bg-white py-2 position-relative">
+
+        {% include 'nav.html' %}
+
+
+    </div>
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="/shop/">Home</a> <span class="mx-2 mb-0">/</span> <a href="">Account</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Profile</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-12">
+            <div class="border p-4 rounded" role="alert">
+              Returning customer? <a href="#">Click here</a> to login
+            </div>
+          </div>
+        </div> 
+
+        <div class="row">
+          {% comment %} <div class="col-md-6 mb-5 mb-md-0">
+            <h2 class="h3 mb-3 text-black">Account Details</h2>
+
+            <div class="p-3 p-lg-5 border" >
+              <div class="card mb-3">
+                <div class="card-body">
+                  {{ request.user.username }}
+                </div>
+              </div>
+
+              <div class="card mb-3">
+                <div class="card-body">
+                  {{ request.user.email }}
+                </div>
+              </div>
+
+
+              <div class="card">
+                <div class="card-body">
+                  <a href="" class="btn btn-primary btn-sm px-4 pt-2">Change password</a>
+                </div>
+              </div>
+                
+                
+                {{ request.user.phone_number }}
+
+            </div>
+            
+            </div> {% endcomment %}
+          
+          <div class="col-md-12">
+
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Order Summary</h2>
+                <div class="p-3 p-lg-5 border">
+                  <table class="table site-block-order-table mb-5">
+                    <thead>
+                      <th>Product</th>
+                      <th>Reference</th>
+                      <th>Total</th>
+                    </thead>
+                    <tbody>
+                      {% for my_order in my_orders %}
+                      {% for order_item in my_order.items.all %}
+                      <tr>
+                        <td>{{ order_item.item.title }} <strong class="mx-2">x</strong> {{ order_item.quantity }}</td>
+                        <td>${{ my_order.ref_code }}</td>
+                        <td>${{ order_item.get_final_price }}</td>
+                      </tr>
+                      {% endfor %}
+                      {% empty %}
+                      <tr>
+                        <td class="text-black font-weight-bold"><strong>No orders</strong></td>
+                        {% comment %} <td class="text-black">${{ order.get_total }}</td> {% endcomment %}
+                      </tr>
+
+                      {% endfor %}
+                      {% comment %} <tr>
+                        <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                        <td class="text-black">${{ order.get_total }}</td>
+                      </tr>
+                      <tr>
+                        <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                        <td class="text-black font-weight-bold"><strong>${{ order.get_total }}</strong></td>
+                      </tr> {% endcomment %}
+                    </tbody>
+                  </table>
+
+                  
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        </div>
+      </div>
+
+
+{% endblock content %}
