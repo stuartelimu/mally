@@ -5,7 +5,7 @@
 {% block content %}
 
     <style>
-      #mapid { height: 100vh; width: 100%}
+      #mapid { height: 50vh; width: 100%} 
     </style>
   
 
@@ -19,21 +19,23 @@
       <div class="container-fluid">
 
         <div class="row align-items-center">
-          <div class="col-lg-5 text-center">
+          
+          <div class="col-lg-7 col-md-6 align-self-end text-center text-lg-right">
+            {% comment %} <img src="{% static 'images/new/person_transparent.png' %}" alt="Image" class="img-fluid img-1"> {% endcomment %}
+            <div id="mapid"></div>
+          </div>
+
+          <div class="col-lg-5 col-md-6 text-center">
             <div class="featured-hero-product w-100">
               <h1 class="mb-2">Mally</h1>
-              <h4>Locate your nearest store</h4>
-              <div class="price mt-3 mb-5"><strong>1,499</strong> <del>$1,999</del></div>
+              <h4>Shop from your nearest store</h4>
+              {% comment %} <div class="price mt-3 mb-5"><strong>1,499</strong> <del>$1,999</del></div> {% endcomment %}
               <p><form method="POST">{% csrf_token %}<button id="btnLocate" type="submit" class="btn btn-outline-primary rounded-0">locate stores</button></form></p>
               <p id = "status"></p>
               <a id = "map-link" target="_blank"></a>
               <p id = "demo"></p>
               
             </div>  
-          </div>
-          <div class="col-lg-7 align-self-end text-center text-lg-right">
-            {% comment %} <img src="{% static 'images/new/person_transparent.png' %}" alt="Image" class="img-fluid img-1"> {% endcomment %}
-            <div id="mapid" class="img-fluid img-1"></div>
           </div>
           
         </div>
@@ -306,8 +308,8 @@
         xhttp.send(`lat=${latitude}&long=${longitude}&csrfmiddlewaretoken=${csrftoken}`);
 
         status.textContent = '';
-        mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-        mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+        {% comment %} mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`; {% endcomment %}
+        {% comment %} mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`; {% endcomment %}
       }
 
       function error() {
