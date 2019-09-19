@@ -10,3 +10,7 @@ def cart_item_count(user):
         if qs.exists():
             return qs[0].items.count()
     return 0
+
+@register.simple_tag
+def item_count():
+	return Item.objects.all().count()
