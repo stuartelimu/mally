@@ -89,7 +89,7 @@
       </div>
 
     {% endfor %}
-      <div class="col-6 col-md-6 col-lg-6 border-top">
+      {% comment %} <div class="col-6 col-md-6 col-lg-6 border-top">
         <a href="shop-single.html" class="item">
           <span class="tag">Sale</span>
           <img src="{% static 'images/product_2.jpg' %}" alt="Image" class="img-fluid">
@@ -99,7 +99,7 @@
             <strong class="price">$9.50 <del>$30.00</del></strong>
           </div>
         </a>
-      </div>
+      </div> {% endcomment %}
       {% comment %} <div class="col-6 col-md-6 col-lg-6">
         <a href="shop-single.html" class="item">
           <img src="{% static 'images/product_3.jpg' %}" alt="Image" class="img-fluid">
@@ -168,11 +168,12 @@
             <div class="border p-4 mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
               <ul class="list-unstyled mb-0">
+                <li class="mb-1"><a href="{% url 'shop:item_list' %}" class="d-flex"><span>All</span> <span class="text-black ml-auto">(2,550)</span></a></li>
                 {% for tag in tags %}
                 <li class="mb-1"><a href="{% url 'shop:item_list_by_category' tag.slug %}" class="d-flex"><span>{{tag}}</span> <span class="text-black ml-auto"></span></a></li>
                 {% endfor %}
 
-                {% comment %} <li class="mb-1"><a href="#" class="d-flex"><span>Women</span> <span class="text-black ml-auto">(2,550)</span></a></li>
+                 {% comment %} 
                 <li class="mb-1"><a href="#" class="d-flex"><span>Children</span> <span class="text-black ml-auto">(2,124)</span></a></li> {% endcomment %}
               </ul>
             </div>
