@@ -19,6 +19,12 @@
                         <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
                         <td class="text-black">${{ order.get_total }}</td>
                       </tr>
+                      {% if order.coupon %}
+                      <tr>
+                        <td class="text-black font-weight-bold"><strong>{{ order.coupon.code }}</strong></td>
+                        <td class="text-black">- ${{ order.coupon.amount }}</td>
+                      </tr>
+                      {% endif %}
                       <tr>
                         <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
                         <td class="text-black font-weight-bold"><strong>${{ order.get_total }}</strong></td>
