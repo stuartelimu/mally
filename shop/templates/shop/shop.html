@@ -6,6 +6,8 @@
 
 {% get_taglist as tags for 'shop.Item' %}
 
+{% load shop_template_tags %}
+
 {% block content %}
     
 
@@ -168,9 +170,9 @@
             <div class="border p-4 mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
               <ul class="list-unstyled mb-0">
-                <li class="mb-1"><a href="{% url 'shop:item_list' %}" class="d-flex"><span>All</span> <span class="text-black ml-auto">(2,550)</span></a></li>
+                <li class="mb-1"><a href="{% url 'shop:item_list' %}" class="d-flex"><span>All</span> <span class="text-black ml-auto">({% item_count %})</span></a></li>
                 {% for tag in tags %}
-                <li class="mb-1"><a href="{% url 'shop:item_list_by_category' tag.slug %}" class="d-flex"><span>{{tag}}</span> <span class="text-black ml-auto"></span></a></li>
+                <li class="mb-1"><a href="{% url 'shop:item_list_by_category' tag.slug %}" class="d-flex"><span>{{tag}}</span> <span class="text-black ml-auto">({{ tag.slug|tag_item_count }})</span></a></li>
                 {% endfor %}
 
                  {% comment %} 
