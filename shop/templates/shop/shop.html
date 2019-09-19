@@ -221,6 +221,10 @@
       </div>
     </div>
 
+    {% if items_on_promotion %}
+    
+    
+
     <div class="site-section">
       <div class="container">
         <div class="row">
@@ -242,19 +246,26 @@
                   </div>
                 </a>
               </div>
-
+              {% for item in items_on_promotion %}
+              
               <div class="product">
-                <a href="shop-single.html" class="item">
-                  <span class="tag">Sale</span>
-                  <img src="{% static 'images/product_2.jpg' %}" alt="Image" class="img-fluid">
+                <a href="{{item.get_absolute_url}}" class="item">
+                  <span class="tag">{{item.get_label_display}}</span>
+                  <img src="{{item.image.url}}" alt="Image" class="img-fluid">
                   <div class="item-info">
-                    <h3>Marc Jacobs Bag</h3>
+                    <h3>{{item.title}}</h3>
                     <span class="collection d-block">Summer Collection</span>
-                    <strong class="price">$9.50 <del>$30.00</del></strong>
+                    {% if item.discount_price %}
+                    <strong class="price">${{item.discount_price}} <del>${{item.price}}</del></strong>
+                    {% else %}
+                    <strong class="price">${{item.price}}</strong>
+                    {% endif %}
                   </div>
                 </a>
               </div>
 
+              {% endfor %}
+              {% comment %}
               <div class="product">
                 <a href="shop-single.html" class="item">
                   <img src="{% static 'images/product_3.jpg' %}" alt="Image" class="img-fluid">
@@ -299,11 +310,13 @@
                   </div>
                 </a>
               </div>
-
+              {% endcomment %}
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    {% endif %}
 
  {% endblock content %}

@@ -26,6 +26,7 @@ def generateRef(stringLength=6):
 def shop(request, tag_slug=None):
     items = Item.objects.order_by('-created')
     tags = Tag.objects.all()
+    items_on_promotion = Item.objects.filter(label='P').order_by('-created')[:6]
 
     tag = None
 
@@ -45,7 +46,8 @@ def shop(request, tag_slug=None):
         'items': items,
         'tag': tag,
         'page': page,
-        'tags': tags
+        'tags': tags,
+        'items_on_promotion': items_on_promotion
     }
     return render(request, "shop/shop.html", context)
 
