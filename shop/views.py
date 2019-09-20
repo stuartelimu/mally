@@ -15,7 +15,7 @@ from django.utils import timezone
 from taggit.models import Tag
 from paypal.standard.forms import PayPalPaymentsForm
 
-from .models import Item, OrderItem, Order, Address, Coupon
+from .models import Item, OrderItem, Order, Address, Coupon, Refund
 from .forms import CheckoutForm, CouponForm, RefundForm
 
 import random
@@ -451,10 +451,10 @@ class RequestRefundView(LoginRequiredMixin, View):
                 refund.reason = message
                 refund.email = email
                 messages.success(self.request, "Your request was received. We will get back to you shortly.")
-                return redirect("/")
+                return redirect("shop:order_summary")
             except ObjectDoesNotExist:
-                    messages.error(self.request, "Order does not exist")
-                    return redirect("shop:request-refund")
+                messages.error(self.request, "Order does not exist")
+                return redirect("shop:request-refund")
     def get(self, *args, **kwargs):
         form = RefundForm()
         context = {

@@ -72,7 +72,7 @@
                       {% for order_item in my_order.items.all %}
                       <tr>
                         <td>{{ order_item.item.title }} <strong class="mx-2">x</strong> {{ order_item.quantity }}</td>
-                        <td>${{ my_order.ref_code }}</td>
+                        <td>{{ my_order.ref_code }}</td>
                         <td>${{ order_item.get_final_price }}</td>
                       </tr>
                       {% endfor %}
