@@ -57,7 +57,7 @@ def item_search(request):
 
     return render(request, 'shop/search-results.html', context)
 
-def shop(request, tag_slug=None):
+def shop(request, tag_slug=None, name_slug=None):
     items = Item.objects.order_by('-created')
     tags = Tag.objects.all()
     items_on_promotion = Item.objects.filter(label='P').order_by('-created')[:6]
@@ -67,6 +67,11 @@ def shop(request, tag_slug=None):
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         items = items.filter(tags__in=[tag])
+
+    if name_slug == 'asc':
+        items = Item.objects.order_by('title')
+    elif name_slug == 'desc':
+        items = Item.objects.order_by('-title')
 
     paginator = Paginator(items, 8)
     page = request.GET.get('page')
