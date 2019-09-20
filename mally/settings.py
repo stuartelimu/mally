@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django.contrib.sites',
+    'django.contrib.postgres',
 
     'allauth',
     'allauth.account',

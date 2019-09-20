@@ -1,4 +1,7 @@
 from django.conf import settings
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import TrigramSimilarity
+from django.db.models import Count, Q
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.decorators.csrf import csrf_exempt
@@ -22,6 +25,37 @@ def generateRef(stringLength=6):
     """Generate a random string of letters and digits """
     lettersAndDigits = string.ascii_uppercase + string.digits
     return ''.join(random.choice(lettersAndDigits) for i in range(stringLength))
+
+def item_search(request):
+    query = request.GET.get('query')
+    tags = Tag.objects.all()
+    items_on_promotion = Item.objects.filter(label='P').order_by('-created')[:6]
+
+    search_vector = SearchVector('title', weight='A') + SearchVector('description', weight='B')
+    search_query = SearchQuery(query)
+    results = []
+
+    if query:
+        results = Item.objects.annotate(
+                rank=SearchRank(search_vector, search_query)
+            ).filter(rank__gte=0.3).order_by('-rank')
+
+    paginator = Paginator(results, 8)
+    page = request.GET.get('page')
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+
+    context = {
+        'queryset': results,
+        'tags': tags,
+        'items_on_promotion': items_on_promotion
+    }
+
+    return render(request, 'shop/search-results.html', context)
 
 def shop(request, tag_slug=None):
     items = Item.objects.order_by('-created')
