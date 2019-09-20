@@ -15,21 +15,14 @@
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="/shop/">Home</a> <span class="mx-2 mb-0">/</span> <a href="">Account</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Profile</strong></div>
+          <div class="col-md-12 mb-0"><a href="/shop/">Shop</a> <span class="mx-2 mb-0">/</span> <a href="">Account</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Profile</strong></div>
         </div>
       </div>
     </div>
 
     <div class="site-section">
       <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-12">
-            <div class="border p-4 rounded" role="alert">
-              Returning customer? <a href="#">Click here</a> to login
-            </div>
-          </div>
-        </div> 
-
+        
         <div class="row">
           <div class="col-md-6 mb-5 mb-md-0">
             <h2 class="h3 mb-3 text-black">Account Details</h2>
@@ -63,7 +56,33 @@
           
           <div class="col-md-6">
 
-            {% include "shop/order-summary-snippet.html" %}
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Address Details</h2>
+                <div class="p-3 p-lg-5 border">
+                  <table class="table site-block-order-table mb-5">
+                    <thead>
+                      <th>Type</th>
+                      <th>Address</th>
+                    </thead>
+                    <tbody>
+                                            
+                      <tr>
+                        <td class="text-black font-weight-bold"><strong>Billing</strong></td>
+                        <td class="text-black">{{ last_order.billing_address.street_address }}, {{ last_order.billing_address.country.code }}</td>
+                      </tr>
+                      
+                      <tr>
+                        <td class="text-black font-weight-bold"><strong>Shipping</strong></td>
+                        <td class="text-black"><strong>{{ last_order.shipping_address.street_address }}, {{ last_order.shipping_address.country.code }}</strong></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  
+                </div>
+              </div>
+            </div>
 
           </div>
 
