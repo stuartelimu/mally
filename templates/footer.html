@@ -7,17 +7,16 @@
           <h3 class="footer-heading mb-4">About Us</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quae reiciendis distinctio voluptates sed dolorum excepturi iure eaque, aut unde.</p>
         </div>
-        {% if request.user.is_authenticated %}
         <div class="block-7">
-          <form action="#" method="post">
-            <label for="email_subscribe" class="footer-heading">Subscribe</label>
+          <form action="{% url 'marketing:subscribe' %}" method="post">
+            {% csrf_token %}
+            <label for="id_email" class="footer-heading">Subscribe</label>
             <div class="form-group">
-              <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+              <input type="email" name="email" class="form-control py-4" id="id_email" placeholder="Email">
               <input type="submit" class="btn btn-sm btn-primary" value="Send">
             </div>
           </form>
         </div>
-        {% endif %}
       </div>
       <div class="col-lg-5 ml-auto mb-5 mb-lg-0">
         <div class="row">

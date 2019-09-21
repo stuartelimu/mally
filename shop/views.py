@@ -17,6 +17,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 
 from .models import Item, OrderItem, Order, Address, Coupon, Refund
 from .forms import CheckoutForm, CouponForm, RefundForm
+from marketing.forms import EmailSignupForm
 
 import random
 import string
@@ -61,6 +62,7 @@ def shop(request, tag_slug=None, name_slug=None):
     items = Item.objects.order_by('-created')
     tags = Tag.objects.all()
     items_on_promotion = Item.objects.filter(label='P').order_by('-created')[:6]
+    form = EmailSignupForm()
 
     tag = None
 
@@ -86,7 +88,8 @@ def shop(request, tag_slug=None, name_slug=None):
         'tag': tag,
         'page': page,
         'tags': tags,
-        'items_on_promotion': items_on_promotion
+        'items_on_promotion': items_on_promotion,
+        'form': form,
     }
     return render(request, "shop/shop.html", context)
 

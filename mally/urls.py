@@ -30,6 +30,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
+    path('', include('marketing.urls', namespace='marketing')),
 ]
 
 if settings.DEBUG:
