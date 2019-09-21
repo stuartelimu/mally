@@ -59,7 +59,10 @@ INSTALLED_APPS = [
 
     'shop',
     'store',
+    'marketing',
     'accounts',
+
+
     'taggit',
     'taggit_templatetags2',
     'django_countries',
