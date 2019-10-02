@@ -5,7 +5,7 @@
 {% block content %}
 
     <style>
-      #mapid { height: 50vh; width: 100%} 
+      #mapid { height: 100vh; width: 100%;} 
     </style>
   
 
@@ -20,12 +20,9 @@
 
         <div class="row align-items-center">
           
-          <div class="col-lg-7 col-md-6 align-self-end text-center text-lg-right">
-            {% comment %} <img src="{% static 'images/new/person_transparent.png' %}" alt="Image" class="img-fluid img-1"> {% endcomment %}
-            <div id="mapid"></div>
-          </div>
+          
 
-          <div class="col-lg-5 col-md-6 text-center">
+          <div class="col-lg-5 col-xs-12 text-center">
             <div class="featured-hero-product w-100">
               <h1 class="mb-2">Mally</h1>
               <h4>Shop from your nearest store</h4>
@@ -36,6 +33,11 @@
               <p id = "demo"></p>
               
             </div>  
+          </div>
+
+          <div class="col-lg-7 col-xs-12 align-self-end text-center text-lg-right">
+            {% comment %} <img src="{% static 'images/new/person_transparent.png' %}" alt="Image" class="img-fluid img-1"> {% endcomment %}
+            <div id="mapid"></div>
           </div>
           
         </div>

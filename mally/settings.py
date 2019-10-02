@@ -181,9 +181,9 @@ ACCOUNT_EMAIL_REQUIRED=True
 
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-ACCOUNT_FORMS = {
-    'signup': 'accounts.forms.MyCustomSignupForm',
-}
+# ACCOUNT_FORMS = {
+#     'signup': 'accounts.forms.MyCustomSignupForm',
+# }
 
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
  
