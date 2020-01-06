@@ -1,0 +1,1 @@
+web: gunicorn mawazo.wsgi --log-file -

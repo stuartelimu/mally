@@ -15,4 +15,10 @@ class Store(models.Model):
             "city": self.city
         }
 
+
+class Area(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.PointField()
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=50)
     
