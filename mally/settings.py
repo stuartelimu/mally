@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from decouple import config, Csv
 from django.contrib.messages import constants as messages
+import django_heroku
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
@@ -200,3 +201,6 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 EMAIL_BACKEND = config('EMAIL_BACKEND')
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
