@@ -204,7 +204,8 @@ EMAIL_BACKEND = config('EMAIL_BACKEND')
 
 # gdal setttings heroku
 GDAL_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgdal.so'
-GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgeos_c.so'
+GDAL_LIBRARY_PATH = '/app/.heroku/vendor/lib/libproj.so'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
