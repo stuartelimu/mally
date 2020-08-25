@@ -1,1 +1,1 @@
-web: gunicorn mawazo.wsgi --log-file -
+web: gunicorn mally.wsgi --log-file -
