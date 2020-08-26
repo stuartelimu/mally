@@ -14,6 +14,8 @@ import os
 from decouple import config, Csv
 from django.contrib.messages import constants as messages
 import django_heroku
+import cloudinary
+
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
@@ -69,6 +71,7 @@ INSTALLED_APPS = [
     'django_countries',
     'paypal.standard.ipn',  
     'django.contrib.gis',
+    'cloudinary',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -206,6 +209,13 @@ EMAIL_BACKEND = config('EMAIL_BACKEND')
 GDAL_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgdal.so'
 GEOS_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgeos_c.so'
 PROJ4_LIBRARY_PATH = '/app/.heroku/vendor/lib/libproj.so'
+
+# cloudinary config
+cloudinary.config(
+    cloud_name = config('CLOUDINARY_CLOUD_NAME'),
+    api_key = config('CLOUDINARY_API_KEY'),
+    api_secret = config('CLOUDINARY_API_SECRET')
+)
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

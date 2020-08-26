@@ -3,6 +3,10 @@ from django.conf import settings
 from taggit.managers import TaggableManager
 from django.urls import reverse
 from django_countries.fields import CountryField
+from cloudinary.models import CloudinaryField
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+import cloudinary
 
 LABEL_CHOICES = (
     ('S', 'Sale'),
@@ -25,7 +29,7 @@ class Item(models.Model):
     tags = TaggableManager()
     label = models.CharField(choices=LABEL_CHOICES, blank=True, null=True, max_length=2)
     description = models.TextField()
-    image = models.ImageField()
+    image = CloudinaryField('image')
 
     def __str__(self):
         return self.title
@@ -44,6 +48,10 @@ class Item(models.Model):
         return reverse('shop:remove_from_cart', args=[
             self.slug
         ])
+
+@receiver(pre_delete, sender=Item)
+def photo_delete(sender, instance, **kwargs):
+    cloudinary.uploader.destroy(instance.image.public_id)
 
 class OrderItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
