@@ -209,3 +209,4 @@ PROJ4_LIBRARY_PATH = '/app/.heroku/vendor/lib/libproj.so'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
